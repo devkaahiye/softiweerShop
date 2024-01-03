@@ -8,8 +8,8 @@ export const addToCart  = async(req, res) => {
 
         const product = await Product.findById(productId);
 
-
-        let user = await Users.findById(userId).populate("cart.product").populate("wishlist.product")
+        if (product) {
+            let user = await Users.findById(userId).populate("cart.product").populate("wishlist.product")
         if (user.cart.length == 0) {
             user.cart.push({product, quatity:1})
             
@@ -34,8 +34,15 @@ export const addToCart  = async(req, res) => {
         }
 
 
-        user = user.save()
+        user =await user.save()
         res.status(200).json(user)
+            
+        }else{
+            res.status(404).json({ message: "product not found" });
+        }
+
+
+        
 
     }catch(e){
         res.status(500).json({ error: e.message });
