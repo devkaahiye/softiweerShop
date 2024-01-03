@@ -11,7 +11,7 @@ export const addToCart = async (req, res) => {
       .populate("cart.product")
       .populate("wishlist.product");
     if (user.cart.length == 0) {
-      user.cart.push({ product, quatity: 1 });
+      user.cart.push({ product, quantity: 1 });
     } else {
       let isProductFound = false;
       for (let i = 0; i < user.cart.length; i++) {
@@ -23,9 +23,9 @@ export const addToCart = async (req, res) => {
         let producttt = user.cart.find((pro) =>
           pro.product._id.equals(product._id)
         );
-        producttt.quatity++;
+        producttt.quantity++;
       } else {
-        user.cart.push({ product, quatity: 1 });
+        user.cart.push({ product, quantity: 1 });
       }
     }
 
@@ -57,7 +57,7 @@ export const addToWishlist = async (req, res) => {
       if (isProductFound) {
         res.status(400).json({ message: "aleardy added" });
       } else {
-        user.wishlist.push({ product, quatity: 1 });
+        user.wishlist.push({ product});
       }
     }
 
