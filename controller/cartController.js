@@ -11,7 +11,7 @@ export const addToCart  = async(req, res) => {
 
         let user = await Users.findById(userId).populate("cart.product").populate("wishlist.product")
         if (user.cart.length == 0) {
-            user.cart.push({product, quatity:1})
+            user.cart.push({product, quantity:1})
             
         }else{
             let isProductFound = false;
@@ -24,17 +24,17 @@ export const addToCart  = async(req, res) => {
                let producttt = user.cart.find(pro=>
                 pro.product._id.equals(product._id)
                 );
-                producttt.quatity++;
+                producttt.quantity++;
 
             }else{
-                user.cart.push({product, quatity:1})
+                user.cart.push({product, quantity:1})
             }
 
 
         }
 
 
-        user = user.save()
+        user =await user.save()
         res.status(200).json(user)
 
     }catch(e){
@@ -70,14 +70,14 @@ export const addToWishlist  = async(req, res) => {
                res.status(400).json({message:"aleardy added"})
 
             }else{
-                user.wishlist.push({product, quatity:1})
+                user.wishlist.push({product})
             }
 
 
         }
 
 
-        user = user.save()
+        user =await user.save()
         res.status(200).json(user)
 
     }catch(e){
