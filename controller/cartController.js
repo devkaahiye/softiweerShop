@@ -101,7 +101,7 @@ export const removeCartItem  = async(req, res) => {
 
         for (let index = 0; index < user.cart.length; index++) {
             if (user.cart[index].product._id.equals(product._id)) {
-                if (user.cart[i].quantity == 1) {
+                if (user.cart[index].quantity == 1) {
                     user.cart.splice(index, 1)
                     
                 }else{
