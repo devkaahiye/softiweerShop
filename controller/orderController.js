@@ -11,7 +11,7 @@ export const getOrders = async(req, res)=>{
         res.status(200).json(orders)
         
     } catch (error) {
-        res.status(500).json({ error: e.message });
+        res.status(500).json({ error: error.message });
     }
 }
 
@@ -24,7 +24,7 @@ export const getRecentOrders = async(req, res)=>{
         res.status(200).json(orders)
         
     } catch (error) {
-        res.status(500).json({ error: e.message });
+        res.status(500).json({ error: error.message });
     }
 }
 
@@ -37,7 +37,7 @@ export const getMyOrders = async(req, res)=>{
         res.status(200).json(orders)
         
     } catch (error) {
-        res.status(500).json({ error: e.message });
+        res.status(500).json({ error: error.message });
     }
 }
 
@@ -90,6 +90,6 @@ export const addOrdersItems = async(req, res)=>{
        
         
     } catch (error) {
-        res.status(500).json({ error: e.message });
+        res.status(500).json({ error: error.message });
     }
 }
