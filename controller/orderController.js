@@ -71,7 +71,7 @@ export const addOrdersItems = async(req, res)=>{
             shippingPrice,
             totalPice,
             status:1,
-            orderedAt: new Date.getTime(),
+            orderedAt: new Date().getTime(),
         })
 
         await order.save()
