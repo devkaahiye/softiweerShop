@@ -61,12 +61,7 @@ export const addOrdersItems = async(req, res)=>{
             
         }
 
-        const user = await Users.findById(userid);
-        if (user) {
-
-            user.cart = []
-            await user.save()
-        }
+        
 
         const order = await Orders.create({
             user:userid,
@@ -80,6 +75,15 @@ export const addOrdersItems = async(req, res)=>{
         })
 
         await order.save()
+
+        if (order) {
+            const user = await Users.findById(userid);
+        if (user) {
+
+            user.cart = []
+            await user.save()
+        }
+        }
 
         res.status(201).json(order);
 
