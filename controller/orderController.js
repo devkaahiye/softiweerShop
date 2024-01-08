@@ -46,7 +46,7 @@ export const getMyOrders = async(req, res)=>{
 export const addOrdersItems = async(req, res)=>{
     try {
 
-        const { userid, products, address, paymentMethod, totalPice,shippingPrice,  } =req.body;
+        const { userid, products, address, paymentMethod, totalPrice,shippingPrice,  } =req.body;
 
         let productsList = []
 
@@ -69,7 +69,7 @@ export const addOrdersItems = async(req, res)=>{
             address,
             paymentMethod,
             shippingPrice,
-            totalPice,
+            totalPrice,
             status:1,
             orderedAt: new Date().getTime(),
         })
