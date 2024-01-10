@@ -10,7 +10,7 @@ export const getOrders = async(req, res)=>{
         .populate("products.product");
         res.status(200).json(orders)
         
-    } catch (error) {
+    } catch (e) {
         res.status(500).json({ error: e.message });
     }
 }
@@ -23,7 +23,7 @@ export const getRecentOrders = async(req, res)=>{
         .populate("products.product");
         res.status(200).json(orders)
         
-    } catch (error) {
+    } catch (e) {
         res.status(500).json({ error: e.message });
     }
 }
@@ -36,7 +36,7 @@ export const getMyOrders = async(req, res)=>{
         .populate("products.product");
         res.status(200).json(orders)
         
-    } catch (error) {
+    } catch (e) {
         res.status(500).json({ error: e.message });
     }
 }
@@ -46,7 +46,7 @@ export const getMyOrders = async(req, res)=>{
 export const addOrdersItems = async(req, res)=>{
     try {
 
-        const { userid, products, address, paymentMethod, totalPice,shippingPrice,  } =req.body;
+        const { userid, products, address, paymentMethod, totalPrice,shippingPrice,  } =req.body;
 
         let productsList = []
 
@@ -61,12 +61,7 @@ export const addOrdersItems = async(req, res)=>{
             
         }
 
-        const user = await Users.findById(userid);
-        if (user) {
-
-            user.cart = []
-            await user.save()
-        }
+       
 
         const order = await Orders.create({
             user:userid,
@@ -74,18 +69,27 @@ export const addOrdersItems = async(req, res)=>{
             address,
             paymentMethod,
             shippingPrice,
-            totalPice,
+            totalPrice,
             status:1,
             orderedAt: new Date.getTime(),
         })
 
         await order.save()
 
+        if (order) {
+            const user = await Users.findById(userid);
+            if (user) {
+    
+                user.cart = []
+                await user.save()
+            }
+        }
+
         res.status(201).json(order);
 
        
         
-    } catch (error) {
+    } catch (e) {
         res.status(500).json({ error: e.message });
     }
 }
